@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.img-cont__character-name {
+.img-cont__button {
   margin-bottom: 4rem;
 }
 .img-cont__img {
