@@ -10,3 +10,11 @@
   flex-direction: column;
   margin: 0 1rem;
 }
+.light-mode {
+  background-color: azure;
+  color: rgb(2, 2, 73);
+}
+.dark-mode {
+  background-color: rgb(2, 2, 73);
+  color: azure;
+}

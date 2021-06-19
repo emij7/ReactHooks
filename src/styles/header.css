@@ -1,9 +1,8 @@
-div {
-  background-color: rgb(2, 2, 73);
-  color: azure;
-}
-
-.header--light {
+.light-mode {
   background-color: azure;
   color: rgb(2, 2, 73);
+}
+.dark-mode {
+  background-color: rgb(2, 2, 73);
+  color: azure;
 }
