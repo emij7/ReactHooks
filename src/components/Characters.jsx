@@ -1,5 +1,5 @@
 import '../styles/characters.css';
-import { useContext, useEffect, useState, useReducer } from "react";
+import { useContext, useEffect, useState, useReducer, useMemo } from "react";
 import ThemeContext from '../context/ThemeContext';
 
 const initialState={
@@ -24,15 +24,26 @@ const favReducer = (state,action)=>{
 }
 const Characters = () =>{
     const [characters, setCharacters] = useState([]);
+    const [search, setSearch] = useState('');
+
     useEffect(() => {
         fetch('https://rickandmortyapi.com/api/character/')
         .then(results=>results.json())
         .then(data=>setCharacters(data.results))
-    })
-    const theme = useContext(ThemeContext)
+    });
+    const theme = useContext(ThemeContext);
 
     const [state,dispatch]=useReducer(favReducer,initialState);
 
+    const filteredCharacters = useMemo(() => 
+        characters.filter((f)=>{
+            return f.name.toLowerCase().includes(search.toLowerCase());
+        })
+    , [characters,search])
+
+    const handleSearch=(event)=>{
+        setSearch(event.target.value)
+    }
     const handleClick=(newFav) =>{
         let search = false
         for(let i = 0;(i<state.favs.length);i++){
@@ -50,7 +61,11 @@ const Characters = () =>{
     }
     return(
         <div className={theme?'dark-mode':'light-mode'}>
-            <div className='img-cont'>{characters.map(character =>{
+            <div className="main__search">
+                <h3 className='main__search-text'>Search character by name:</h3>
+                <input type="text" value={search} onChange={handleSearch} />
+            </div>
+            <div className='img-cont'>{filteredCharacters.map(character =>{
                 return (
                 <div className="img-cont__img" key={character.id}>
                     <img src={character.image} alt="" />
